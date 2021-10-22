@@ -2,7 +2,7 @@ import express from 'express'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 
-import tv from './tv.js'
+import { channels } from './tv.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -15,11 +15,12 @@ app.get('/ping', (req, res) => {
 })
 
 app.get('/tv/:channel', (req, res) => {
-    const { channel } = req.params
-    if (!channel || !tv[channel]) {
+    const { channel: channelName } = req.params
+    const channelItem = channels.find(it => it.name === channelName)
+    if (!channelName || !channelItem) {
         res.sendStatus(404)
     } else {
-        res.redirect(tv[channel])
+        res.redirect(channelItem.url)
     }
 })
 
