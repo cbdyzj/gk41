@@ -1,7 +1,6 @@
-import express from 'express'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-
+import express from 'express'
 import { channels } from './tv.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
