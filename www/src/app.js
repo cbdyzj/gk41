@@ -29,10 +29,13 @@ app.post('/api/youtube-dl', async (req, res) => {
     if (!payload || !payload.url) {
         res.json({ error: 'URL required' })
     } else {
-        const done = fetchVideo(payload.url, payload.proxy ? PROXY : '')
-        res.json({ payload: 'ok' })
-        const fetched = await done
-        await convertToMp4(fetched, true)
+        try {
+            res.json({ payload: 'ok' })
+            const fetched = await fetchVideo(payload.url, payload.proxy ? PROXY : '')
+            await convertToMp4(fetched, true)
+        } catch (err) {
+            console.error(err)
+        }
     }
 })
 
