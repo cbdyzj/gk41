@@ -5,11 +5,15 @@ const _App = css`
   width: 100vw;
   min-height: 100vh;
   background-color: #fafafa;
-  padding: .5rem;
+  padding: .5rem 1rem;
 
   & nav {
-    display: flex;
-    justify-content: space-between;
+    font-size: 0;
+
+    & a:not(:first-child) {
+      font-size: 1rem;
+      margin-left: .5rem;
+    }
   }
 
   & .container {
@@ -34,6 +38,10 @@ const _App = css`
     }
   }
 
+  & label.input-proxy-label {
+    cursor: pointer;
+  }
+
   & input.input-proxy {
     width: 1rem;
     height: 1rem;
@@ -47,12 +55,20 @@ const _App = css`
     background-color: #007bff;
     padding: .375rem .75rem;
     border-radius: .25rem;
+    user-select: none;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
     &:hover {
       color: #fff;
       background-color: #0069d9;
       border-color: #0062cc
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: #fff;
+      background-color: #ccc;
+      border-color: #eee;
     }
   }
 
@@ -83,7 +99,7 @@ export default {
           <button class="button-start" @click="handleClickStartDownload" :disabled="buttonDisabled">
             开始下载
           </button>
-          <label>
+          <label class="input-proxy-label">
             <input class="input-proxy" type="checkbox" v-model="proxy"><span>使用代理</span>
           </label>
         </div>
@@ -115,7 +131,7 @@ export default {
                     alert(result.error)
                 } else {
                     this.url = ''
-                    alert('开始下载了')
+                    alert('下载已经开始，在"公共文件"查看下载进度')
                 }
             } catch (err) {
                 alert(err.message)
