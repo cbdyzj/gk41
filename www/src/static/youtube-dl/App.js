@@ -57,12 +57,14 @@ const _App = css`
   }
 
   & a.a-public {
+    box-sizing: border-box;
     color: #007bff;
     text-decoration: none;
     font-size: 1rem;
+    border-bottom: .25rem solid transparent;
 
     &:hover {
-      text-decoration: underline;
+      border-bottom: .25rem solid #60a5fa;
     }
   }
 `
@@ -71,8 +73,8 @@ export default {
     template: `
       <div class="${_App}">
       <nav>
-        <span></span>
-        <a class="a-public" :href="'/public'">我的文件</a>
+        <a class="a-public" :href="'/'">gk41</a>
+        <a class="a-public" :href="'/public'">公共文件</a>
       </nav>
       <div class="container">
         <input class="input-url" placeholder="粘贴视频URL..." v-model="url" type="text">
