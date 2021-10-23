@@ -9,7 +9,7 @@ import { convertToMp4 } from './ffmpeg.js'
 const app = express()
 
 app.use(express.static(staticDir))
-app.use('/public', express.static(publicDir), serveIndex(publicDir, { 'icons': true }))
+app.use('/public', express.static(publicDir), serveIndex(publicDir, { icons: true, view: 'details' }))
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
