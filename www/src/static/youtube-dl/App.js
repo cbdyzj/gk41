@@ -25,13 +25,14 @@ const _App = css`
     padding: .375rem .75rem;
     box-sizing: border-box;
     border: 1px solid #ced4da;
-    width: 60%;
+    width: 90%;
+    max-width: 800px;
     height: 2.5rem;
     font-size: 1rem;
   }
 
   & .container-button {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 
     & > *:not(:first-child) {
       margin-left: 8px;
