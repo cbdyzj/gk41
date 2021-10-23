@@ -1,13 +1,12 @@
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
 import express from 'express'
+import serveIndex from 'serve-index'
 import { channels } from './tv.js'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
+import { publicDir, staticDir } from './config.js'
 
 const app = express()
 
-app.use(express.static(join(__dirname, 'static')))
+app.use(express.static(staticDir))
+app.use('/public', express.static(publicDir), serveIndex(publicDir, { 'icons': true }))
 
 app.get('/ping', (req, res) => {
     res.end('pong')

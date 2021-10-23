@@ -2,4 +2,4 @@
 .gradle/
 node_modules/
 package-lock.json
-download/
+public/

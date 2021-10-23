@@ -1,25 +1,30 @@
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import { $ } from 'zx'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-const gk41Dir = join(__dirname, '../..')
-const downloadDir = join(gk41Dir, 'download')
+import { publicDir } from './config.js'
 
 export async function fetchVideo(url, proxy = '') {
     if (!url) {
         throw new Error('URL required')
     }
+    const options = []
     if (proxy) {
-        proxy = `--proxy ${proxy}`
+        options.push('--proxy', proxy)
     }
-    const out = await $`docker run --rm -v ${downloadDir}:/workdir:rw mikenye/youtube-dl ${proxy} ${url}`
+    const args = [
+        '--rm',
+        '-v',
+        `${publicDir}:/workdir:rw`,
+        'mikenye/youtube-dl',
+        ...options,
+        url,
+    ]
+    const out = await $`docker run ${args}`
     const result = /\[download] Destination: (.+)\n/.exec(out.stdout)
     if (!result || !result[1]) {
         throw new Error(out.stdout)
     }
-    return join(downloadDir, result[1])
+    return join(publicDir, result[1])
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
