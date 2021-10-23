@@ -3,7 +3,7 @@ import serveIndex from 'serve-index'
 import bodyParser from 'body-parser'
 import { channels } from './tv.js'
 import { fetchVideo } from './youtube-dl.js'
-import { defaultProxy, publicDir, staticDir } from './config.js'
+import { PROXY, publicDir, staticDir } from './config.js'
 import { convertToMp4 } from './ffmpeg.js'
 
 const app = express()
@@ -29,7 +29,7 @@ app.post('/api/youtube-dl', async (req, res) => {
     if (!payload || !payload.url) {
         res.json({ error: 'URL required' })
     } else {
-        const done = fetchVideo(payload.url, payload.proxy ? defaultProxy : '')
+        const done = fetchVideo(payload.url, payload.proxy ? PROXY : '')
         res.json({ payload: 'ok' })
         const fetched = await done
         await convertToMp4(fetched, true)
