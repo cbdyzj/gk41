@@ -2,4 +2,5 @@
 .gradle/
 node_modules/
 package-lock.json
-public/
+public/*
+!public/.gitkeep

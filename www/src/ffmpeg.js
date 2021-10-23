@@ -15,6 +15,8 @@ export async function convertToMp4(input = '', removeSourceFile) {
         'jrottenberg/ffmpeg',
         '-i',
         input,
+        '-c',
+        'copy',
         `${input}.mp4`,
     ]
     await $`docker run ${args}`
