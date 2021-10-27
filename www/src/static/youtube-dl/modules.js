@@ -1,8 +1,2 @@
-const Vue = window['Vue']
-const { css, cx } = window['emotion']
-
-export {
-    Vue,
-    css,
-    cx
-}
+export const Vue = window['Vue']
+export const { css, cx } = window['emotion']
