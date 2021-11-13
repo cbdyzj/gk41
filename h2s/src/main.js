@@ -1,4 +1,4 @@
-import { startProxyServer } from './ProxyServer.js'
+import ProxyServer from './ProxyServer.js'
 
 const options = {
     proxy: {
@@ -10,5 +10,6 @@ const options = {
     port: 8080,
 }
 
-await startProxyServer(options)
-console.log(`Serving on ${options.host}:${options.port}`)
+new ProxyServer(options).start(() => {
+    console.log(`Serving on ${options.host}:${options.port}`)
+})

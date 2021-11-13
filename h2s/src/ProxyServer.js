@@ -1,8 +1,7 @@
 import { createServer } from 'http'
-import { promisify } from 'util'
 import { SocksClient } from 'socks'
 
-class ProxyServer {
+export default class ProxyServer {
 
     constructor(options) {
         this.options = options
@@ -43,20 +42,9 @@ class ProxyServer {
         }
     }
 
-    async start() {
+    start(callback) {
         const server = createServer()
         server.addListener('connect', this.handleConnect.bind(this))
-        return promisify(server.listen.bind(server))(this.options.port)
+        server.listen(this.options.port, this.options.host, callback)
     }
-}
-
-export function startProxyServer(options) {
-    return new Promise((resolve, reject) => {
-        try {
-            new ProxyServer(options).start()
-            resolve()
-        } catch (err) {
-            reject(err)
-        }
-    })
 }
