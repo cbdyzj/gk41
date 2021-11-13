@@ -50,8 +50,8 @@ class ProxyServer {
     }
 }
 
-export async function startProxyServer(options) {
-    new Promise((resolve, reject) => {
+export function startProxyServer(options) {
+    return new Promise((resolve, reject) => {
         try {
             new ProxyServer(options).start()
             resolve()
