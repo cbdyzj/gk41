@@ -7,21 +7,26 @@ export default class ProxyServer {
         this.options = options
     }
 
-    async handleConnect(request, requestSocket, head) {
+    handleConnect(request, requestSocket, head) {
         let proxySocket
-        try {
-            const requestUrl = new URL(`http://${request.url}`)
-            const host = requestUrl.hostname
-            const port = requestUrl.port | 0
 
-            const conn = await SocksClient.createConnection({
-                proxy: this.options.proxy,
-                destination: { host, port, },
-                command: 'connect',
-            })
+        requestSocket.on('error', (err) => {
+            console.error(`${err.message}`)
+            if (proxySocket) {
+                proxySocket.destroy(err)
+            }
+        })
 
+        const requestUrl = new URL(`http://${request.url}`)
+        const host = requestUrl.hostname
+        const port = requestUrl.port | 0
+
+        SocksClient.createConnection({
+            proxy: this.options.proxy,
+            destination: { host, port, },
+            command: 'connect',
+        }).then((conn) => {
             proxySocket = conn.socket
-
             proxySocket.on('error', (err) => {
                 console.error(`${err.message}`)
                 requestSocket.destroy(err)
@@ -33,13 +38,10 @@ export default class ProxyServer {
             proxySocket.write(head)
             requestSocket.write(`HTTP/${request.httpVersion} 200 Connection established\r\n\r\n`)
             proxySocket.resume()
-        } catch (err) {
+        }).catch((err) => {
             console.error(`${err.message}`)
             requestSocket.write(`HTTP/${request.httpVersion} 500 Connection error\r\n\r\n`)
-            if (proxySocket) {
-                proxySocket.destroy(err)
-            }
-        }
+        })
     }
 
     start(callback) {
