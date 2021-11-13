@@ -37,6 +37,9 @@ class ProxyServer {
         } catch (err) {
             console.error(`${err.message}`)
             requestSocket.write(`HTTP/${request.httpVersion} 500 Connection error\r\n\r\n`)
+            if (proxySocket) {
+                proxySocket.destroy(err)
+            }
         }
     }
 
