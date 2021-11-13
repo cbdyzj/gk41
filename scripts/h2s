@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")" || exit 1
 
-cd ../www || exit 1
+cd ../h2s || exit 1
 
 NODE=(./.gradle/nodejs/node*/bin/node)
 [ "${#NODE[@]}" -ne 1 ] && { echo 'Multiple matches' >&2; exit 1; }

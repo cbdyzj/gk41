@@ -1,0 +1,9 @@
+plugins {
+    id 'com.github.node-gradle.node'
+}
+
+node {
+    version = '17.0.1'
+    npmVersion = '8.1.0'
+    download = true
+}
