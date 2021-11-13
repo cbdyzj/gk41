@@ -27,17 +27,17 @@ export default class ProxyServer {
             command: 'connect',
         }).then((conn) => {
             proxySocket = conn.socket
+
             proxySocket.on('error', (err) => {
                 console.error(`${err.message}`)
                 requestSocket.destroy(err)
             })
 
-            proxySocket.pipe(requestSocket)
-            requestSocket.pipe(proxySocket)
-
             proxySocket.write(head)
             requestSocket.write(`HTTP/${request.httpVersion} 200 Connection established\r\n\r\n`)
-            proxySocket.resume()
+
+            proxySocket.pipe(requestSocket)
+            requestSocket.pipe(proxySocket)
         }).catch((err) => {
             console.error(`${err.message}`)
             requestSocket.write(`HTTP/${request.httpVersion} 500 Connection error\r\n\r\n`)
