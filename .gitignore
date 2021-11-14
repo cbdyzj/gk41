@@ -1,7 +1,11 @@
 .idea/
 .gradle/
+.env
+# node
 node_modules/
 package-lock.json
+# www
 public/*
 !public/.gitkeep
-.env
+# trojan
+trojan/config/
