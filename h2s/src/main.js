@@ -1,4 +1,5 @@
-import ProxyServer from './ProxyServer.js'
+import { createServer } from 'http'
+import { createConnectListener } from './ConnectListener.js'
 
 const options = {
     proxy: {
@@ -6,10 +7,13 @@ const options = {
         port: 9080,
         type: 5,
     },
-    host: '0.0.0.0',
-    port: 8080,
 }
 
-new ProxyServer(options).start(() => {
-    console.log(`Serving on ${options.host}:${options.port}`)
-})
+const host = '0.0.0.0'
+const port = 8080
+
+createServer()
+    .addListener('connect', createConnectListener(options))
+    .listen(port, host, () => {
+        console.log(`Serving on ${host}:${port}`)
+    })

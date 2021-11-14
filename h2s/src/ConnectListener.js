@@ -1,13 +1,12 @@
-import { createServer } from 'http'
 import { SocksClient } from 'socks'
 
-export default class ProxyServer {
+/**
+ * @param {ConnectListenerOptions} options
+ * @returns {ConnectListener}
+ */
+export function createConnectListener(options) {
 
-    constructor(options) {
-        this.options = options
-    }
-
-    handleConnect(request, requestSocket, head) {
+    return (request, requestSocket, head) => {
         let proxySocket
 
         requestSocket.on('error', (err) => {
@@ -22,7 +21,7 @@ export default class ProxyServer {
         const port = requestUrl.port | 0
 
         SocksClient.createConnection({
-            proxy: this.options.proxy,
+            proxy: options.proxy,
             destination: { host, port, },
             command: 'connect',
         }).then((conn) => {
@@ -42,11 +41,5 @@ export default class ProxyServer {
             console.error(`${err.message}`)
             requestSocket.write(`HTTP/${request.httpVersion} 500 Connection error\r\n\r\n`)
         })
-    }
-
-    start(callback) {
-        const server = createServer()
-        server.addListener('connect', this.handleConnect.bind(this))
-        server.listen(this.options.port, this.options.host, callback)
     }
 }
