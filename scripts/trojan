@@ -7,4 +7,4 @@ fi
 
 cd ../trojan || exit 1
 
-./trojan "$@"
+./trojan.js "$@"
