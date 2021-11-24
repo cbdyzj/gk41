@@ -1,4 +1,4 @@
-import { join, relative } from 'path'
+import { join, relative } from 'node:path'
 import { $ } from 'zx'
 import { publicDir } from './config.js'
 

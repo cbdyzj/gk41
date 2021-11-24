@@ -7,4 +7,8 @@ fi
 
 cd ../trojan || exit 1
 
+if [ ! -d node_modules ]; then
+    npm i
+fi
+
 ./trojan.js "$@"

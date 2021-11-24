@@ -1,5 +1,5 @@
-import { IncomingMessage } from 'http'
-import { Duplex } from 'stream'
+import { IncomingMessage } from 'node:http'
+import { Duplex } from 'node:stream'
 import { SocksProxy } from 'socks'
 
 type ConnectListenerOptions = {

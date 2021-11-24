@@ -1,6 +1,7 @@
-#!/usr/bin/env zx
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
+#!/usr/bin/env node
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import 'zx/globals'
 
 $.verbose = false
 
