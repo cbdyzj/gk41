@@ -11,4 +11,4 @@ if [ ! -d node_modules ]; then
     npm i
 fi
 
-./trojan.js "$@"
+exec ./trojan.js "$@"

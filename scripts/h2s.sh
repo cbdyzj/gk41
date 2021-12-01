@@ -7,4 +7,4 @@ if [ ! -d node_modules ]; then
     npm i
 fi
 
-node ./src/main.js "$@"
+exec node ./src/main.js "$@"
