@@ -3,11 +3,11 @@
 ## Start www
 
 ```sh
-./scripts/www
+./scripts/www.sh
 ```
 
 ## Start h2s
 
 ```sh
-./scripts/h2s
+./scripts/h2s.sh
 ```
