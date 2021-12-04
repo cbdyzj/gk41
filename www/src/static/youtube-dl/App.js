@@ -97,11 +97,12 @@ export default {
         <input class="input-url" placeholder="粘贴视频URL..." v-model="url" type="text">
         <br>
         <div class="container-button">
-          <button class="button-start" @click="handleClickStartDownload" :disabled="buttonDisabled">
+          <button class="button-start" @click="handleClickStartDownload" :disabled="loading">
             开始下载
           </button>
           <label class="input-proxy-label">
-            <input class="input-proxy" type="checkbox" v-model="proxy"><span>使用代理</span>
+            <input class="input-proxy" type="checkbox" v-model="proxy" :disabled="loading">
+            <span>使用代理</span>
           </label>
         </div>
       </div>
@@ -111,13 +112,13 @@ export default {
         return {
             url: '',
             proxy: false,
-            buttonDisabled: false,
+            loading: false,
         }
     },
     methods: {
         async handleClickStartDownload() {
             try {
-                this.buttonDisabled = true
+                this.loading = true
                 const payload = {
                     url: this.url,
                     proxy: this.proxy,
@@ -137,7 +138,7 @@ export default {
             } catch (err) {
                 alert(err.message)
             } finally {
-                this.buttonDisabled = false
+                this.loading = false
             }
         },
     },

@@ -1,8 +1,8 @@
 import { join, relative } from 'node:path'
 import { $ } from 'zx'
-import { FFMPEG_DOCKER_IMAGE, publicDir } from './config.js'
+import { publicDir, FFMPEG_DOCKER_IMAGE } from '../config.js'
 
-export async function convertToMp4(input = '', removeSourceFile) {
+export default async function convertToMp4(input = '', removeSourceFile) {
     if (!input || input.endsWith('.mp4')) {
         return
     }
@@ -11,7 +11,9 @@ export async function convertToMp4(input = '', removeSourceFile) {
     const args = [
         '--rm',
         '-v',
-        `${publicDir}:/tmp/workdir:rw`,
+        `${publicDir}:/workdir:rw`,
+        '-w',
+        '/workdir',
         FFMPEG_DOCKER_IMAGE,
         '-i',
         input,

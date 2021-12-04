@@ -1,8 +1,8 @@
 import { join } from 'node:path'
 import { $ } from 'zx'
-import { publicDir, YOUTUBE_DL_DOCKER_IMAGE } from './config.js'
+import { publicDir, YOUTUBE_DL_DOCKER_IMAGE } from '../config.js'
 
-export async function fetchVideo(url, proxy = '') {
+export default async function fetchVideo(url, proxy = '') {
     if (!url) {
         throw new Error('URL required')
     }
