@@ -2,7 +2,7 @@ import { join, relative } from 'node:path'
 import { $ } from 'zx'
 import { publicDir, FFMPEG_DOCKER_IMAGE } from '../config.js'
 
-export default async function convertToMp4(input = '', removeSourceFile) {
+export default async function convertToMp4(input = '', removeOriginalFile = false) {
     if (!input || input.endsWith('.mp4')) {
         return
     }
@@ -22,7 +22,7 @@ export default async function convertToMp4(input = '', removeSourceFile) {
         `${input}.mp4`,
     ]
     await $`docker run ${args}`
-    if (removeSourceFile) {
+    if (removeOriginalFile) {
         await $`rm ${join(publicDir, input)}`
     }
 }

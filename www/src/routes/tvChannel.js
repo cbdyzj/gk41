@@ -1,6 +1,6 @@
 import { channels } from '../services/tv.js'
 
-export default function tv(req, res) {
+export default function tvChannel(req, res) {
     const { channel: channelName } = req.params
     const channelItem = channels.find(it => it.name === channelName)
     if (!channelName || !channelItem) {
