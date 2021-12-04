@@ -1,6 +1,6 @@
 import { join } from 'node:path'
 import { $ } from 'zx'
-import { publicDir } from './config.js'
+import { publicDir, YOUTUBE_DL_DOCKER_IMAGE } from './config.js'
 
 export async function fetchVideo(url, proxy = '') {
     if (!url) {
@@ -14,7 +14,7 @@ export async function fetchVideo(url, proxy = '') {
         '--rm',
         '-v',
         `${publicDir}:/workdir:rw`,
-        'mikenye/youtube-dl',
+        YOUTUBE_DL_DOCKER_IMAGE,
         ...options,
         url,
     ]
