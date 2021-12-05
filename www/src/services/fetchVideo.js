@@ -6,16 +6,16 @@ export default async function fetchVideo(url, proxy = '') {
     if (!url) {
         throw new Error('URL required')
     }
-    const options = []
+    const extraOptions = []
     if (proxy) {
-        options.push('--proxy', proxy)
+        extraOptions.push('--proxy', proxy)
     }
     const args = [
         '--rm',
         '-v',
         `${publicDir}:/workdir:rw`,
         YOUTUBE_DL_DOCKER_IMAGE,
-        ...options,
+        ...extraOptions,
         url,
     ]
     const out = await $`docker run ${args}`

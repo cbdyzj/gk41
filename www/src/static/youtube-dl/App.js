@@ -1,14 +1,15 @@
 import { css } from './modules.js'
+import MessageBox from './MessageBox.js'
 
 const _App = css`
   box-sizing: border-box;
   width: 100vw;
   min-height: 100vh;
   background-color: #fafafa;
-  padding: .5rem 1rem;
 
   & nav {
     font-size: 0;
+    padding: .5rem 1rem;
 
     & a:not(:first-child) {
       font-size: 1rem;
@@ -17,6 +18,7 @@ const _App = css`
   }
 
   & .container {
+    padding: .5rem 1rem;
     text-align: center;
     margin-top: 25vh;
   }
@@ -55,7 +57,7 @@ const _App = css`
     color: #fff;
     background-color: #007bff;
     padding: .375rem .75rem;
-    border-radius: .25rem;
+    border-radius: .125rem;
     user-select: none;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 
@@ -84,17 +86,22 @@ const _App = css`
       border-bottom: .25rem solid #60a5fa;
     }
   }
+
+  input:disabled {
+    cursor: not-allowed;
+  }
 `
 
 export default {
     template: `
       <div class="${_App}">
+      <MessageBox :visible="messageVisible" :text="message"/>
       <nav>
         <a class="a-public" :href="'/'">gk41</a>
         <a class="a-public" :href="'/public'">公共文件</a>
       </nav>
       <div class="container">
-        <input class="input-url" placeholder="粘贴视频URL..." v-model="url" type="text">
+        <input class="input-url" placeholder="粘贴视频URL..." v-model="url" type="text" :disabled="loading">
         <br>
         <div class="container-button">
           <button class="button-start" @click="handleClickStartDownload" :disabled="loading">
@@ -113,33 +120,53 @@ export default {
             url: '',
             proxy: false,
             loading: false,
+            message: '',
         }
     },
+    computed: {
+        messageVisible() {
+            return !!this.message
+        },
+    },
+    components: { MessageBox, },
     methods: {
+        async requestDownload() {
+            this.loading = true
+            const payload = {
+                url: this.url,
+                proxy: this.proxy,
+            }
+            const response = await fetch('/api/youtube-dl', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', },
+                body: JSON.stringify(payload),
+            })
+            return await response.json()
+        },
         async handleClickStartDownload() {
             try {
-                this.loading = true
-                const payload = {
-                    url: this.url,
-                    proxy: this.proxy,
-                }
-                const response = await fetch('/api/youtube-dl', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', },
-                    body: JSON.stringify(payload),
-                })
-                const result = await response.json()
+                const result = await this.requestDownload()
                 if (result.error) {
-                    alert(result.error)
+                    await this.showMessage(result.error)
                 } else {
+                    await this.showMessage('下载已经开始，请在"公共文件"查看下载进度')
                     this.url = ''
-                    alert('下载已经开始，在"公共文件"查看下载进度')
                 }
             } catch (err) {
-                alert(err.message)
+                await this.showMessage(err.message)
             } finally {
                 this.loading = false
             }
         },
+        showMessage(message) {
+            return new Promise((resolve) => {
+                this.message = message
+                setTimeout(() => {
+                    this.message = ''
+                    resolve()
+                }, 2000)
+            })
+
+        }
     },
 }

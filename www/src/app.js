@@ -3,7 +3,7 @@ import serveIndex from 'serve-index'
 import bodyParser from 'body-parser'
 import { publicDir, staticDir } from './config.js'
 import tvChannel from './routes/tvChannel.js'
-import youtubeDl from './routes/youtube-dl.js'
+import youtubeDl from './routes/youtubeDl.js'
 
 const app = express()
 
