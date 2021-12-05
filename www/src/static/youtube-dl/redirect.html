@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, sans-serif;
+        }
+
+        #app {
+            box-sizing: border-box;
+            min-height: 100vh;
+            text-align: center;
+            padding: 30vh 0;
+        }
+
+        #app span {
+            font-size: 1.5rem;
+        }
+    </style>
+    <title>重定向中...</title>
+</head>
+<body>
+<div id="app"></div>
+<script>
+    const params = new URLSearchParams(location.search)
+    const status = params.get('status')
+    const url = params.get('url')
+    const appRef = document.getElementById('app')
+    if (status === 'succeed') {
+        const spanRef = document.createElement('span')
+        spanRef.innerText = '开始下载了，3秒后将回到下载页面...'
+        appRef.appendChild(spanRef)
+        setTimeout(() => {
+            window.location = '/youtube-dl/'
+        }, 3000)
+    } else {
+        const spanRef = document.createElement('span')
+        spanRef.innerText = `非法的URL，请检查: ${url}`
+        appRef.appendChild(spanRef)
+    }
+</script>
+</body>
+</html>
