@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 cd "$(dirname "$0")" || exit 1
 
-if [ -f .env ]; then
-    . ./.env
+if [ -f ../.profile ]; then
+    . ../.profile
 fi
 
 cd ../www || exit 1

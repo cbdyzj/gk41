@@ -1,6 +1,6 @@
 .idea/
 .gradle/
-.env
+.profile
 # node
 node_modules/
 package-lock.json
