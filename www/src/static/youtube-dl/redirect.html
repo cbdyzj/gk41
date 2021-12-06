@@ -23,7 +23,7 @@
             font-size: 1.5rem;
         }
     </style>
-    <title>下载视频...</title>
+    <title>重定向中...</title>
 </head>
 <body>
 <div id="app"></div>
@@ -34,11 +34,11 @@
     const appRef = document.getElementById('app')
     if (status === 'succeed') {
         const spanRef = document.createElement('span')
-        spanRef.innerText = '开始下载了，3秒后页面将关闭...'
+        spanRef.innerText = '开始下载了，5秒后页面将转到公共文件页面...'
         appRef.appendChild(spanRef)
         setTimeout(() => {
-            window.close()
-        }, 3000)
+            window.location = '/public/'
+        }, 5000)
     } else {
         const spanRef = document.createElement('span')
         spanRef.innerText = `非法的URL，请检查: ${url}`
