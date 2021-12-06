@@ -4,7 +4,7 @@ import { createConnectListener } from './ConnectListener.js'
 const options = {
     proxy: {
         ipaddress: '127.0.0.1',
-        port: 9080,
+        port: 1080,
         type: 5,
     },
 }
