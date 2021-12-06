@@ -23,7 +23,7 @@
             font-size: 1.5rem;
         }
     </style>
-    <title>重定向中...</title>
+    <title>下载视频...</title>
 </head>
 <body>
 <div id="app"></div>
@@ -34,10 +34,10 @@
     const appRef = document.getElementById('app')
     if (status === 'succeed') {
         const spanRef = document.createElement('span')
-        spanRef.innerText = '开始下载了，3秒后将回到下载页面...'
+        spanRef.innerText = '开始下载了，3秒后页面将关闭...'
         appRef.appendChild(spanRef)
         setTimeout(() => {
-            window.location = '/youtube-dl/'
+            window.close()
         }, 3000)
     } else {
         const spanRef = document.createElement('span')
