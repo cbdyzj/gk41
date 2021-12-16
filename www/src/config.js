@@ -8,7 +8,9 @@ export const rootDir = join(__dirname, '../..')
 export const publicDir = join(rootDir, 'public')
 
 export const PORT = process.env.PORT ?? 3000
-export const PROXY = process.env.PROXY ?? 'socks5://127.0.0.1:9080'
+export const HTTP_PROXY = process.env.HTTP_PROXY ?? undefined
+export const PROXY = process.env.ALL_PROXY ?? 'socks5://127.0.0.1:9080'
+export const NANO_TASK_API_TICKET = process.env.NANO_TASK_API_TICKET
 
 // docker images
 export const FFMPEG_DOCKER_IMAGE = 'jrottenberg/ffmpeg@sha256:3e65ca52fc9d05ecff6ed1ace87bb17e46f411464c32eb8a11ca5398e59dd95c'

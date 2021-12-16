@@ -1,8 +1,10 @@
 import { sleep } from 'zx'
+import { getTaskList } from './services/nanoTask.js'
 
 async function scheduleWork(isRunning) {
     while (isRunning()) {
-        //
+        const taskList = await getTaskList()
+        console.info('taskList', taskList)
         await sleep(3000)
     }
 }
