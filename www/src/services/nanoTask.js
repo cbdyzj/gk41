@@ -1,6 +1,5 @@
 import { fetch } from 'zx'
-import HttpProxyAgent from 'http-proxy-agent'
-import { HTTP_PROXY, NANO_TASK_API_TICKET } from '../config.js'
+import { NANO_TASK_API_TICKET } from '../config.js'
 
 export async function getTaskList() {
     const params = new URLSearchParams()
@@ -9,7 +8,6 @@ export async function getTaskList() {
         headers: {
             'X-Ticket': NANO_TASK_API_TICKET,
         },
-        agent: HTTP_PROXY && new HttpProxyAgent(HTTP_PROXY),
     })
     const result = await response.json()
     if (result.error) {
