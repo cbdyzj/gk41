@@ -1,6 +1,9 @@
+import { $ } from 'zx'
 import { PORT } from './config.js'
 import worker from './worker.js'
 import service from './service.js'
+
+$.verbose = false
 
 function startWorker() {
     worker.start(() => {

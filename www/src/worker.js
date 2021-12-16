@@ -6,14 +6,14 @@ async function executeTask() {
         const taskList = await getTaskList()
         console.info('taskList', taskList)
     } catch (err) {
-        console.error('Get tasks: ', err.message)
+        console.error('getTaskList', err.message)
     }
 }
 
 async function scheduleWork(isRunning) {
     while (isRunning()) {
         await executeTask()
-        await sleep(30_000)
+        await sleep(30 * 60 * 1000)
     }
 }
 
