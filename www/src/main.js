@@ -13,7 +13,7 @@ function startWorker() {
 }
 
 service.listen(PORT, () => {
-    log.info('serving on port ' + PORT)
+    log.info('Serving on port ' + PORT)
 
     startWorker()
 })

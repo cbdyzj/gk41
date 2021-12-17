@@ -4,7 +4,7 @@ export default {
     info(...args) {
         console.info(timeTag(), ...args)
     },
-    error() {
+    error(...args) {
         console.error(timeTag(), ...args)
     },
 }
