@@ -10,30 +10,9 @@ async function executeTask() {
     }
 }
 
-async function scheduleWork(isRunning) {
+export async function scheduleWork(isRunning) {
     while (isRunning()) {
         await executeTask()
-        await sleep(30 * 60 * 1000)
-    }
-}
-
-export default {
-    running: false,
-    start(startedCallback, stoppedCallback) {
-        this.running = true
-        setTimeout(() => {
-            scheduleWork(() => this.running)
-                .then(() => {
-                    stoppedCallback?.()
-                })
-                .catch((err) => {
-                    console.error(err)
-                    this.stop()
-                })
-        })
-        startedCallback?.()
-    },
-    stop() {
-        this.running = false
+        await sleep(3 * 1000)
     }
 }
