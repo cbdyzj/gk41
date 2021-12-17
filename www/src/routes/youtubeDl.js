@@ -2,6 +2,7 @@ import { PROXY } from '../config.js'
 import fetchVideo from '../services/fetchVideo.js'
 import convertToMp4 from '../services/convertToMp4.js'
 import { isValidHttpUrl } from '../utils/url.js'
+import log from '../utils/log.js'
 
 export async function youtubeDl(req, res) {
     const payload = req.body
@@ -13,7 +14,7 @@ export async function youtubeDl(req, res) {
             const fetched = await fetchVideo(payload.url, payload.proxy ? PROXY : '')
             await convertToMp4(fetched, true)
         } catch (err) {
-            console.error(err)
+            log.error(err)
         }
     }
 }
@@ -33,7 +34,7 @@ export async function youtubeDlAndRedirect(req, res) {
             const fetched = await fetchVideo(url, proxy ? PROXY : '')
             await convertToMp4(fetched, true)
         } catch (err) {
-            console.error(err)
+            log.error(err)
         }
     }
 }

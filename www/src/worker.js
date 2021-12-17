@@ -1,12 +1,13 @@
 import { sleep } from 'zx'
 import { getTaskList } from './services/nanoTask.js'
+import log from './utils/log.js'
 
 async function executeTask() {
     try {
         const taskList = await getTaskList()
-        console.info(`[${new Date().toISOString()}]`, 'getTaskList', taskList)
+        log.info('getTaskList', taskList)
     } catch (err) {
-        console.error(`[${new Date().toISOString()}]`, 'getTaskList', err.message)
+        log.error('getTaskList', err.message)
     }
 }
 
