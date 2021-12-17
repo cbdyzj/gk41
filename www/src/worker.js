@@ -4,9 +4,9 @@ import { getTaskList } from './services/nanoTask.js'
 async function executeTask() {
     try {
         const taskList = await getTaskList()
-        console.info('taskList', taskList)
+        console.info(`[${new Date().toISOString()}]`, 'getTaskList', taskList)
     } catch (err) {
-        console.error('getTaskList', err.message)
+        console.error(`[${new Date().toISOString()}]`, 'getTaskList', err.message)
     }
 }
 
